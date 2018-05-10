@@ -1,8 +1,9 @@
 import React from 'react';
 import {Map, TileLayer, Marker, Popup} from 'react-leaflet';
 import L from 'leaflet';
-import
 import './markerGenerator.css';
+import Slider, {Range} from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 export default class markerGenerator extends React.Component{
   /**Default Constructor*/
@@ -13,11 +14,16 @@ export default class markerGenerator extends React.Component{
       endIndex: -1,
     };
   }
-  
+
+  /**update Function*/
+  update = (val) => {
+    console.log(val.valueNow);
+  }
+
   /**clickedMarker Function*/
   clickedMarker = (point, index, component) => {
     //Checking which button is clicked
-    if(component == "start"){
+    if(component === "start"){
       //Setting select start point
       //this.props.onSelectStartPoint(point);
 
@@ -75,8 +81,8 @@ export default class markerGenerator extends React.Component{
               Longitude: {points[i].longitude} <br />
               Time: {points[i].time} <br />
               <div className = "center">
-                <input type = "button" id = "btnStart" value = "Start" onClick = {() => {this.clickedMarker(points[i], i, "start")}}/>
-                <input type = "button" id = "btnEnd" value = "End" onClick = {() => {this.clickedMarker(points[i], i, "end")}}/>
+                <input type = "button" value = "Start" onClick = {() => {this.clickedMarker(points[i], i, "start")}}/>
+                <input type = "button" value = "End" onClick = {() => {this.clickedMarker(points[i], i, "end")}}/>
               </div>
             </span>
           </Popup>
@@ -94,12 +100,40 @@ export default class markerGenerator extends React.Component{
 
     //Displaying webpage
     return(
-      <Map center = {pos} zoom = {13}>
-        <TileLayer
-          attribution = "&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-          url = "http://{s}.tile.osm.org/{z}/{x}/{y}.png"/>
-        {this.loadMarkers()}
-      </Map>
+      <div>
+        <div>
+          <Map center = {pos} zoom = {13}>
+            <TileLayer
+              attribution = "&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                url = "http://{s}.tile.osm.org/{z}/{x}/{y}.png"/>
+            {this.loadMarkers()}
+          </Map>
+        </div>
+        <div className = "center">
+          <br />
+          <table border = "1px solid black" align = "center" width = "80%">
+            <tbody>
+              <tr>
+                <td>
+                  <Slider
+                    step = {1}
+                    defaultValue = {1}
+                    id = "slider1"
+                    min = {1}
+                    max = {this.props.points.length}
+                    trackStyle = {{
+                      backgroundColor: "red"
+                    }}
+                    railStyle = {{
+                      backgroundColor: "green"
+                    }}
+                    onChange = {() => {this.update(document.getElementById("slider1"))}}/>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     )
   }
 }
