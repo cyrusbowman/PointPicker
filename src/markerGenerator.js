@@ -13,7 +13,7 @@ export default class markerGenerator extends React.Component{
       endIndex: -1,
     };
   }
-  //test
+  
   /**clickedMarker Function*/
   clickedMarker = (point, index, component) => {
     //Checking which button is clicked
