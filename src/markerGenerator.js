@@ -1,6 +1,7 @@
 import React from 'react';
 import {Map, TileLayer, Marker, Popup} from 'react-leaflet';
 import L from 'leaflet';
+import
 import './markerGenerator.css';
 
 export default class markerGenerator extends React.Component{
@@ -12,7 +13,7 @@ export default class markerGenerator extends React.Component{
       endIndex: -1,
     };
   }
-
+  //test
   /**clickedMarker Function*/
   clickedMarker = (point, index, component) => {
     //Checking which button is clicked
