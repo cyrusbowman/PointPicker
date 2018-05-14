@@ -42,6 +42,12 @@ export default class markerGenerator extends React.Component{
 
   /**sliderUpdated Function*/
   sliderUpdated = (value) => {
+    //Setting select start point
+    //this.props.onSelectStartPoint(this.props.points[value[0]]);
+
+    //Setting select end point
+    //this.props.onSelectEndPoint(this.props.points[value[1]]);
+
     //Setting state
     this.setState({
       startIndex: value[0],

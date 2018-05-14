@@ -5,14 +5,18 @@ import MarkerGenerator from "./markerGenerator.js";
 export default class page extends React.Component{
   /**selectedStart Function*/
   selectedStart = (point) => {
-    var latitude = point.latitude;
-    alert(latitude);
+    console.log("START POINT" + "\n"
+              + "Latitude: " + point.latitude + "\n"
+              + "Longitude: " + point.longitude + "\n"
+              + "Time: " + point.time);
   }
 
   /**selectedEnd Function*/
   selectedEnd = (point) => {
-    var longitude = point.longitude;
-    alert(longitude);
+    console.log("END POINT" + "\n"
+              + "Latitude: " + point.latitude + "\n"
+              + "Longitude: " + point.longitude + "\n"
+              + "Time: " + point.time);
   }
 
 
