@@ -5,7 +5,7 @@ import MarkerGenerator from "./markerGenerator.js";
 export default class page extends React.Component{
   /**selectedStart Function*/
   selectedStart = (point) => {
-    console.log("START POINT" + "\n"
+    console.log("START POINT\n"
               + "Latitude: " + point.latitude + "\n"
               + "Longitude: " + point.longitude + "\n"
               + "Time: " + point.time);
@@ -13,7 +13,7 @@ export default class page extends React.Component{
 
   /**selectedEnd Function*/
   selectedEnd = (point) => {
-    console.log("END POINT" + "\n"
+    console.log("END POINT\n"
               + "Latitude: " + point.latitude + "\n"
               + "Longitude: " + point.longitude + "\n"
               + "Time: " + point.time);

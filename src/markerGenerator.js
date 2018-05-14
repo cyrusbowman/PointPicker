@@ -4,6 +4,8 @@ import L from 'leaflet';
 import './markerGenerator.css';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import 'leaflet/dist/leaflet.css';
+
 const Range = Slider.Range;
 
 export default class markerGenerator extends React.Component{
