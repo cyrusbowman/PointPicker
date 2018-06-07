@@ -70,7 +70,7 @@ export default class markerGenerator extends React.Component{
     for(let i = 0; i < points.length; i++){
       //Getting position
       pos = [points[i].latitude, points[i].longitude];
-
+      var plotIt = false;
       //Checking start/end index
       if(this.state.startIndex === i){
         //Changing to green
@@ -78,107 +78,17 @@ export default class markerGenerator extends React.Component{
           iconUrl: require('./green-icon.png'),
           iconSize: new L.Point(15,30)
         });
-
-        //Setting type
-        type = 1;
+        plotIt = true;
       }else if(this.state.endIndex === i){
         //Changing to red
         iconType = L.icon({
           iconUrl: require('./red-icon.png'),
           iconSize: new L.Point(15,30)
         });
+        plotIt = true;
 
-        //Setting type
-        type = 2;
-      }else{
-        //Changing to blue
-        iconType = L.icon({
-          iconUrl: require('./blue-icon.png'),
-          iconSize: new L.Point(15,30)
-        });
-
-        if(this.state.endIndex < i){
-          //Setting type
-          type = 3;
-        }else if(this.state.startIndex > i){
-          //Setting type
-          type = 4;
-        }else{
-          //Setting type
-          type = 5;
-        }
       }
-
-      //Checking type
-      if(type === 1){
-        //Creating new marker
-        markers.push(
-          <Marker position = {pos} key = {i} icon = {iconType}>
-            <Popup>
-              <span>
-                Latitude: {points[i].latitude} <br />
-                Longitude: {points[i].longitude} <br />
-                Time: {points[i].time} <br />
-                <div className = "center">
-                  <input type = "button" disabled value = "Start" onClick = {() => {this.clickedMarker(points[i], i, "start")}}/>
-                  <input type = "button" disabled value = "End" onClick = {() => {this.clickedMarker(points[i], i, "end")}}/>
-                </div>
-              </span>
-            </Popup>
-          </Marker>
-        )
-      }else if(type === 2){
-        //Creating new marker
-        markers.push(
-          <Marker position = {pos} key = {i} icon = {iconType}>
-            <Popup>
-              <span>
-                Latitude: {points[i].latitude} <br />
-                Longitude: {points[i].longitude} <br />
-                Time: {points[i].time} <br />
-                <div className = "center">
-                  <input type = "button" disabled value = "Start" onClick = {() => {this.clickedMarker(points[i], i, "start")}}/>
-                  <input type = "button" disabled value = "End" onClick = {() => {this.clickedMarker(points[i], i, "end")}}/>
-                </div>
-              </span>
-            </Popup>
-          </Marker>
-        )
-      }else if(type === 3){
-        //Creating new marker
-        markers.push(
-          <Marker position = {pos} key = {i} icon = {iconType}>
-            <Popup>
-              <span>
-                Latitude: {points[i].latitude} <br />
-                Longitude: {points[i].longitude} <br />
-                Time: {points[i].time} <br />
-                <div className = "center">
-                  <input type = "button" disabled value = "Start" onClick = {() => {this.clickedMarker(points[i], i, "start")}}/>
-                  <input type = "button" value = "End" onClick = {() => {this.clickedMarker(points[i], i, "end")}}/>
-                </div>
-              </span>
-            </Popup>
-          </Marker>
-        )
-      }else if(type === 4){
-        //Creating new marker
-        markers.push(
-          <Marker position = {pos} key = {i} icon = {iconType}>
-            <Popup>
-              <span>
-                Latitude: {points[i].latitude} <br />
-                Longitude: {points[i].longitude} <br />
-                Time: {points[i].time} <br />
-                <div className = "center">
-                  <input type = "button" value = "Start" onClick = {() => {this.clickedMarker(points[i], i, "start")}}/>
-                  <input type = "button" disabled value = "End" onClick = {() => {this.clickedMarker(points[i], i, "end")}}/>
-                </div>
-              </span>
-            </Popup>
-          </Marker>
-        )
-      }else{
+      if (plotIt) {
         //Creating new marker
         markers.push(
           <Marker position = {pos} key = {i} icon = {iconType}>
@@ -194,7 +104,7 @@ export default class markerGenerator extends React.Component{
               </span>
             </Popup>
           </Marker>
-        )
+        );
       }
     }
     //Returning marker array
@@ -204,7 +114,7 @@ export default class markerGenerator extends React.Component{
   /**Rendering Webpage*/
   render(){
     //Getting center position
-    const pos = [this.props.points[0].latitude, this.props.points[0].longitude]
+    const pos = [parseFloat(this.props.points[0].latitude), parseFloat(this.props.points[0].longitude)]
 
     //Displaying webpage
     return(
@@ -212,8 +122,8 @@ export default class markerGenerator extends React.Component{
         <div>
           <Map center = {pos} zoom = {13}>
             <TileLayer
-              attribution = "&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-                url = "http://{s}.tile.osm.org/{z}/{x}/{y}.png"/>
+              attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+              url = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"/>
             {this.loadMarkers()}
           </Map>
         </div>
